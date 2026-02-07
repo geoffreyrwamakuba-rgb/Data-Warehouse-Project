@@ -9,6 +9,11 @@ The goal is to:
 - Transform it into business-ready analytical models (Star Schema)
 - The final Gold layer provides dimension and fact views for reporting and analytics.
 
+<img 
+  src="https://github.com/geoffreyrwamakuba-rgb/Data-Warehouse-Project/blob/main/Docs/Data%20Flow.png?raw=true"
+  width="900"
+/>
+
 ## Architecture
 | **Layers** | **Layer Purpose**                                                                                                         |
 |------------|---------------------------------------------------------------------------------------------------------------------------|
