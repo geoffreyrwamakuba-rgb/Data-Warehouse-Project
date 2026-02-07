@@ -1,4 +1,4 @@
-# Data Warehouse Project – Bronze, Silver, Gold Architecture
+# Data Warehouse Project – Medallion Architecture
 ## Overview
 
 ### This project implements a modern data warehouse architecture using the Bronze → Silver → Gold layered approach.
@@ -49,19 +49,19 @@ No constraints or business logic are applied in Bronze.
 - gold.agg_top_10_countries_by_sales
 - gold.agg_orders_by_month
 
-### This project follows a Kimball-style dimensional model:
+**This project follows a Kimball-style dimensional model:**
 - Facts at the lowest grain (order line)
 - Surrogate keys for dimensions
 - Star schema design
 - Aggregations built on top of facts
 - Gold Data Catalog
 
-### Full column-level documentation is available in Docs/gold_data_catalog.md
+**Full column-level documentation is available in Docs/gold_data_catalog.md**
 - Column names
 - Data types
 - Business descriptions
 
-Diagrams - All architectural diagrams are provided in /Docs:
+**Diagrams - All architectural diagrams are provided in /Docs:**
 
 | **File**                 | **Description**                   |
 |--------------------------|-----------------------------------|
