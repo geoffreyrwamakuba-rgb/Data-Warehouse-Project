@@ -12,15 +12,6 @@ All objects in this layer are built from the Silver layer and are optimized for 
 
 ---
 
-## Schema Diagram (Logical)
-
-dim_customers ───────┐  
-                     ├── fact_sales  
-                     │  
-Aggregations derived from fact_sales  
-
----
-
 ## 1. gold.dim_customers
 **Purpose:**  
 Stores customer master data enriched with geographic attributes.
