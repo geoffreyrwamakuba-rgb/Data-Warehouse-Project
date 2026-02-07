@@ -7,7 +7,7 @@ The goal is to:
 - Ingest raw ERP-style data
 - Clean and validate it
 - Transform it into business-ready analytical models (Star Schema)
-The final Gold layer provides dimension and fact views for reporting and analytics.
+- The final Gold layer provides dimension and fact views for reporting and analytics.
 
 ## Architecture
 | **Layers** | **Layer Purpose**                                                                                                   |
