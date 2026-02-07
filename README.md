@@ -1,7 +1,7 @@
 # Data Warehouse Project – Medallion Architecture
 ## Overview
 
-### This project implements a modern data warehouse architecture using the Bronze → Silver → Gold layered approach.
+### This project implements a modern data warehouse using the Bronze → Silver → Gold layered approach.
 
 The goal is to:
 - Ingest raw ERP-style data
@@ -38,9 +38,9 @@ No constraints or business logic are applied in Bronze.
 - silver.sales_document
 - silver.sales_document_item
 - silver.address_info
-### Stored procedure - silver.load_silver()
-### Quality checks - silver_layer_quality_checks.sql
-
+**Stored procedure - silver.load_silver()**
+**Quality checks - silver_layer_quality_checks.sql**
+  
 ## Gold Layer (Star Schema) - Business-ready analytical layer.
 ### VIEWS
 - gold.dim_customers
