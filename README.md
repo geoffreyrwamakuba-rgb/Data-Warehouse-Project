@@ -1,231 +1,71 @@
 # Data Warehouse Project – Bronze, Silver, Gold Architecture
 ## Overview
 
-This project implements a modern data warehouse architecture using the Bronze → Silver → Gold layered approach.
+### This project implements a modern data warehouse architecture using the Bronze → Silver → Gold layered approach.
 
 The goal is to:
-
-Ingest raw ERP-style data
-
-Clean and validate it
-
-Transform it into business-ready analytical models (Star Schema)
-
+- Ingest raw ERP-style data
+- Clean and validate it
+- Transform it into business-ready analytical models (Star Schema)
 The final Gold layer provides dimension and fact views for reporting and analytics.
 
-Architecture
-Layers
-Layer	Purpose
-Bronze	Raw ingestion layer. Data is loaded exactly as received from source systems. No transformations.
-Silver	Cleansed and standardized layer. Data quality checks, type cleaning, trimming, deduplication, and business rules applied.
-Gold	Business layer. Star schema (dimensions + facts) and aggregations for analytics.
-Project Structure
-Scripts/
-│
-├── init_database.sql
-│
-├── Bronze/
-│   ├── bronze_layer_ddl.sql
-│   └── bronze_layer_stored_procedure.sql
-│
-├── Silver/
-│   ├── silver_layer_ddl.sql
-│   ├── silver_layer_quality_checks.sql
-│   └── silver_layer_stored_procedure.sql
-│
-├── Gold/
-│   └── gold_ddl.sql
-│
-Docs/
-│
-├── Data_Flow.drawio
-├── Data_Integration.drawio
-├── Data_Model.drawio
-└── gold_data_catalog.md
+## Architecture
+| **Layers** | **Layer Purpose**                                                                                                   |
+|------------|---------------------------------------------------------------------------------------------------------------------|
+| Bronze |Raw ingestion layer. Data is loaded exactly as received from source systems. No transformations.                       |
+| Silver |Cleansed and standardized layer. Data quality checks, type cleaning, trimming, deduplication, and business rules applied.|
+| Gold |Business layer. Star schema (dimensions + facts) and aggregations for analytics.                                           | 
 
-Bronze Layer
-Purpose
-
-Stores raw source data exactly as ingested.
-
-Objects
-
-Tables:
-
-bronze.customers
-
-bronze.sales_document
-
-bronze.sales_document_item
-
-bronze.address_info
-
-Stored procedure:
-
-bronze.load_bronze()
-
+## Bronze Layer - Store raw source data exactly as ingested.
+### Tables:
+- bronze.customers
+- bronze.sales_document
+- bronze.sales_document_item
+- bronze.address_info
+### Stored procedure - bronze.load_bronze()
 No constraints or business logic are applied in Bronze.
 
-Silver Layer
-Purpose
+## Silver Layer - Cleans and validates data before it becomes analytical.
+### Key Features
+- Trimming whitespace
+- Converting empty strings to NULL
+- Removing future dates
+- Foreign key validation
+- Data quality checks
+- Composite keys where required
+### Tables:
+- silver.customers
+- silver.sales_document
+- silver.sales_document_item
+- silver.address_info
+### Stored procedure - silver.load_silver()
+### Quality checks - silver_layer_quality_checks.sql
+
+## Gold Layer (Star Schema) - Business-ready analytical layer.
+### VIEWS
+- gold.dim_customers
+- gold.fact_sales
+- gold.agg_top_10_customers_by_sales
+- gold.agg_top_10_countries_by_sales
+- gold.agg_orders_by_month
+
+### This project follows a Kimball-style dimensional model:
+- Facts at the lowest grain (order line)
+- Surrogate keys for dimensions
+- Star schema design
+- Aggregations built on top of facts
+- Gold Data Catalog
+
+### Full column-level documentation is available in Docs/gold_data_catalog.md
+- Column names
+- Data types
+- Business descriptions
+
+Diagrams - All architectural diagrams are provided in /Docs:
+
+| **File**                 | **Description**                   |
+|--------------------------|-----------------------------------|
+| Data_Flow.drawio         | End-to-end pipeline flow          |
+| Data_Integration.drawio  | Layer interactions                |
+| Data_Model.drawio	       | Star schema model                 |
 
-Cleans and validates data before it becomes analytical.
-
-Key Features
-
-Trimming whitespace
-
-Converting empty strings to NULL
-
-Removing future dates
-
-Foreign key validation
-
-Data quality checks
-
-Composite keys where required
-
-Objects
-
-Tables:
-
-silver.customers
-
-silver.sales_document
-
-silver.sales_document_item
-
-silver.address_info
-
-Stored procedure:
-
-silver.load_silver()
-
-Quality checks:
-
-silver_layer_quality_checks.sql
-
-Gold Layer (Star Schema)
-Purpose
-
-Business-ready analytical layer.
-
-Dimension
-gold.dim_customers
-
-Customer dimension enriched with geographic data.
-
-Fact
-gold.fact_sales
-
-Transactional fact table at order line level.
-
-Aggregations
-View	Description
-gold.agg_top_10_customers_by_sales	Top 10 customers by order count
-gold.agg_top_10_countries_by_sales	Top 10 countries by orders
-gold.agg_orders_by_month	Monthly order volume
-Data Modeling Approach
-
-This project follows a Kimball-style dimensional model:
-
-Facts at the lowest grain (order line)
-
-Surrogate keys for dimensions
-
-Star schema design
-
-Aggregations built on top of facts
-
-Gold Data Catalog
-
-Full column-level documentation is available in:
-
-Docs/gold_data_catalog.md
-
-
-Includes:
-
-Column names
-
-Data types
-
-Business descriptions
-
-How to Run
-1. Initialize Database
-\i Scripts/init_database.sql
-
-2. Create Bronze Layer
-\i Scripts/Bronze/bronze_layer_ddl.sql
-CALL bronze.load_bronze();
-
-3. Create Silver Layer
-\i Scripts/Silver/silver_layer_ddl.sql
-CALL silver.load_silver();
-
-4. Run Quality Checks
-\i Scripts/Silver/silver_layer_quality_checks.sql
-
-5. Create Gold Views
-\i Scripts/Gold/gold_ddl.sql
-
-Key Design Decisions
-Composite Keys
-
-Some entities (e.g. customers with multiple addresses) use composite business keys in Silver.
-
-Surrogate Keys
-
-Gold layer uses:
-
-ROW_NUMBER() OVER (...)
-
-
-to generate surrogate keys.
-
-Transactions & Error Handling
-
-Silver load procedure:
-
-Uses exception handling
-
-Re-throws errors
-
-Ensures atomic loads
-
-Diagrams
-
-All architectural diagrams are provided in /Docs:
-
-File	Description
-Data_Flow.drawio	End-to-end pipeline flow
-Data_Integration.drawio	Layer interactions
-Data_Model.drawio	Star schema model
-Why This Design Is Good Practice
-
-This project demonstrates:
-
-Proper separation of concerns
-
-Production-grade ETL patterns
-
-Realistic ERP-style modeling
-
-Dimensional analytics design
-
-Strong data governance via quality checks
-
-This is exactly how modern analytics platforms are built in industry (Snowflake, BigQuery, Redshift, Synapse, etc).
-
-Tech Stack
-
-PostgreSQL
-
-SQL / PLpgSQL
-
-Star Schema
-
-Kimball methodology
-
-Summary
