@@ -90,4 +90,7 @@ Ranks countries by sales volume.
 **Purpose:**  
 Tracks order trends over time.
 
-| Column Name      |
+| Column Name      | Data Type | Description |
+|------------------|-----------|-------------|
+| `Month`            | DATE / TEXT | Month bucket (YYYY-MM).       |
+| `number_of_orders` | BIGINT      | Orders created in that month. |
