@@ -10,11 +10,11 @@ The goal is to:
 - The final Gold layer provides dimension and fact views for reporting and analytics.
 
 ## Architecture
-| **Layers** | **Layer Purpose**                                                                                                   |
-|------------|---------------------------------------------------------------------------------------------------------------------|
-| Bronze |Raw ingestion layer. Data is loaded exactly as received from source systems. No transformations.                       |
-| Silver |Cleansed and standardized layer. Data quality checks, type cleaning, trimming, deduplication, and business rules applied.|
-| Gold |Business layer. Star schema (dimensions + facts) and aggregations for analytics.                                           | 
+| **Layers** | **Layer Purpose**                                                                                                         |
+|------------|---------------------------------------------------------------------------------------------------------------------------|
+| Bronze     |  Raw ingestion layer. Data is loaded exactly as received from source systems. No transformations.                         |
+| Silver     |  Cleansed and standardized layer. Data quality checks, type cleaning, trimming, deduplication, and business rules applied.|
+| Gold       |  Business layer. Star schema (dimensions + facts) and aggregations for analytics.                                         | 
 
 ## Bronze Layer - Store raw source data exactly as ingested.
 ### Tables:
@@ -22,8 +22,10 @@ The goal is to:
 - bronze.sales_document
 - bronze.sales_document_item
 - bronze.address_info
-### Stored procedure - bronze.load_bronze()
-No constraints or business logic are applied in Bronze.
+
+**Stored procedure - bronze.load_bronze()**
+
+**No constraints or business logic are applied in Bronze.**
 
 ## Silver Layer - Cleans and validates data before it becomes analytical.
 ### Key Features
@@ -38,7 +40,9 @@ No constraints or business logic are applied in Bronze.
 - silver.sales_document
 - silver.sales_document_item
 - silver.address_info
+
 **Stored procedure - silver.load_silver()**
+
 **Quality checks - silver_layer_quality_checks.sql**
   
 ## Gold Layer (Star Schema) - Business-ready analytical layer.
