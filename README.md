@@ -4,7 +4,7 @@
 ### This project implements a modern data warehouse using the Bronze → Silver → Gold layered approach.
 
 The goal is to:
-- Ingest raw ERP-style data
+- Ingest raw ERP-style data ([Hugging Faces](https://huggingface.co/datasets/SAP/SALT?utm_source=))
 - Clean and validate it
 - Transform it into business-ready analytical models (Star Schema)
 - The final Gold layer provides dimension and fact views for reporting and analytics.
