@@ -1,5 +1,5 @@
 # Data Warehouse Project – Bronze, Silver, Gold Architecture
-Overview
+## Overview
 
 This project implements a modern data warehouse architecture using the Bronze → Silver → Gold layered approach.
 
