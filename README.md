@@ -46,7 +46,7 @@ The goal is to:
 **Quality checks - silver_layer_quality_checks.sql**
   
 ## Gold Layer (Star Schema) - Business-ready analytical layer.
-### VIEWS
+### Views
 - gold.dim_customers
 - gold.fact_sales
 - gold.agg_top_10_customers_by_sales
